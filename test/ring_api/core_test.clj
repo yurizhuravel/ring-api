@@ -22,3 +22,9 @@
     (let [result (http/get (str path "/test-data"))]
     (is (= (:status result) 200))
     (is (= (:body result) "Welcome to the test data route")))))
+
+(deftest bad-route-data
+  (testing "test-data route"
+    (let [result (http/get (str path "/BAD-ROUTE") {:throw-exceptions false})]
+    (is (= (:status result) 404))
+    (is (= (:body result) "Route Not Found")))))

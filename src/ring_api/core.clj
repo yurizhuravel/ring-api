@@ -18,7 +18,8 @@
 (defn handler [request]
   (case (:uri request)
     "/" (root-handler request)
-    "/test-data" (test-data-handler request)))
+    "/test-data" (test-data-handler request)
+    (make-response 404 "Route Not Found")))
 
 (defonce running-server (atom nil))
 
