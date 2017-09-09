@@ -8,4 +8,5 @@
                 [ring/ring-jetty-adapter "1.5.0"]]
   :main ^:skip-aot ring-api.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}
+             :dev {:dependencies  [[clj-http "3.7.0"]]}})

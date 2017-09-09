@@ -1,32 +1,14 @@
 # ring-api
 
-FIXME: description
+FIXME: A very low level use of Clojure's Ring - for a very simple Test API.
 
 ## Installation
 
-Download from http://example.com/FIXME.
+Clone this repo if you really want it.
 
 ## Usage
 
-FIXME: explanation
-
-    $ java -jar ring-api-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+Clone, lein deps, lein run.
 
 ## License
 
