@@ -2,6 +2,8 @@
   (:gen-class)
   (:require [ring.adapter.jetty :as jetty]))
 
+(def http-port 3000)
+
 (defn make-response [status body]
   { :headers {"Content-Type" "text/html"}
     :status status
@@ -24,7 +26,7 @@
 
 (defn start-server [] (if @running-server
   nil
-  (reset! running-server (jetty/run-jetty handler {:port 3000 :join? false}))))
+  (reset! running-server (jetty/run-jetty handler {:port http-port :join? false}))))
 
 (defn -main
   "Start API server."

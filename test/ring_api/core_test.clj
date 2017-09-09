@@ -3,16 +3,13 @@
             [ring-api.core :as core]
             [clj-http.client :as http]))
 
-(defn fixture [test]
-  (core/start-server)
-  (test)
-  (core/stop-server))
+(use-fixtures :once
+  (fn [tests]
+    (core/start-server)
+    (tests)
+    (core/stop-server)))
 
-(use-fixtures :once fixture)
-
-(def port 3000)
-
-(def path (str "http://localhost:" port "/"))
+(def path (str "http://localhost:" core/http-port "/"))
 
 (deftest root
   (testing "root route"
