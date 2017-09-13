@@ -3,6 +3,7 @@
   (:require [ring.adapter.jetty :as jetty]))
 
 (def http-port 3000)
+(def https-port 3001)
 
 (defn make-response [status body]
   { :headers {"Content-Type" "text/html"}
@@ -27,7 +28,13 @@
 
 (defn start-server [] (if @running-server
   nil
-  (reset! running-server (jetty/run-jetty handler {:port http-port :join? false}))))
+  (reset! running-server (jetty/run-jetty handler
+    { :port http-port
+      ; :ssl? true
+      ; :ssl-port https-port
+      ; :keystore "keystore.jks"
+      ; :key-password "simpsons"
+      :join? false}))))
 
 (defn -main
   "Start API server."
