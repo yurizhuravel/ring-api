@@ -22,6 +22,13 @@
 (defn test-data-handler [request]
   (make-response 200 "Welcome to the test data route"))
 
+(defn create-table-if-not-exists [table-name]
+      (try
+        (seq? (jdbc/query db-spec [(str "select * from " table-name)]))
+        (catch Exception e
+          (println (str "Table doesn't exist " table-name ", creating"))
+          (jdbc/query db-spec [(str "create table " table-name " (id serial, count int)")]))))
+
 (defn increment-counter []
       (let [old-count (:count (jdbc/get-by-id db-spec :counter 1))]
       (jdbc/update! db-spec :counter {:count (inc old-count)} ["id = ?" 1])
@@ -55,4 +62,5 @@
 (defn -main
   "Start API server."
   [& args]
+      ;(create-table-if-not-exists "counter")
   (start-server))
