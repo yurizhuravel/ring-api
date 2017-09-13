@@ -1,6 +1,8 @@
 (ns ring-api.core
   (:gen-class)
-  (:require [ring.adapter.jetty :as jetty]))
+  (:require [ring.adapter.jetty :as jetty]
+    [clojure.java.jdbc :as jdbc]
+    ))
 
 (def http-port 3000)
 (def https-port 3001)
@@ -16,10 +18,14 @@
 (defn test-data-handler [request]
   (make-response 200 "Welcome to the test data route"))
 
+(defn counter-handler [request]
+      (make-response 200 "0"))
+
 (defn handler [request]
   (case (:uri request)
     "/" (root-handler request)
     "/test-data" (test-data-handler request)
+        "/counter" (counter-handler request)
     (make-response 404 "Route Not Found")))
 
 (defonce running-server (atom nil))

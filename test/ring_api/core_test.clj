@@ -28,3 +28,10 @@
     (let [result (http/get (str path "/BAD-ROUTE") {:throw-exceptions false})]
     (is (= (:status result) 404))
     (is (= (:body result) "Route Not Found")))))
+
+(deftest counter-route
+         (testing "counter route"
+                  (let [result (http/get (str path "/counter"))
+                        result-second (http/get (str path "/counter"))]
+                       (is (= (:status result) 200))
+                       (is (= (:body result-second) (str (+ (read-string (:body result)) 1)))))))
