@@ -7,7 +7,8 @@
 (def http-port 3000)
 (def https-port 3001)
 
-(def db-spec {:classname "org.postgresql.Driver",
+(def db-spec {:password "password"
+              :classname "org.postgresql.Driver",
               :subprotocol "postgresql",
               :subname "//localhost:5432/ring-api-test"})
 
@@ -55,4 +56,5 @@
 (defn -main
   "Start API server."
   [& args]
+  ; (create-db-if-none-exists)
   (start-server))
