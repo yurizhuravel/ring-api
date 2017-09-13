@@ -7,6 +7,10 @@
 (def http-port 3000)
 (def https-port 3001)
 
+(def db-spec {:classname "org.postgresql.Driver",
+              :subprotocol "postgresql",
+              :subname "//localhost:5432/ring-api-test"})
+
 (defn make-response [status body]
   { :headers {"Content-Type" "text/html"}
     :status status
@@ -18,8 +22,14 @@
 (defn test-data-handler [request]
   (make-response 200 "Welcome to the test data route"))
 
+(defn increment-counter []
+      (let [old-count (:count (jdbc/get-by-id db-spec :counter 1))]
+      (jdbc/update! db-spec :counter {:count (inc old-count)} ["id = ?" 1])
+      old-count))
+
 (defn counter-handler [request]
-      (make-response 200 "0"))
+      (let [counter (increment-counter)]
+      (make-response 200 (str counter))))
 
 (defn handler [request]
   (case (:uri request)

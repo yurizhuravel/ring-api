@@ -11,6 +11,10 @@
 
 (def path (str "http://localhost:" core/http-port "/"))
 
+(def db {:classname "org.postgresql.Driver"
+         :subprotocol "postgresql"
+         :subname "//localhost:"})
+
 (deftest root
   (testing "root route"
     (let [result (http/get (str path "/"))]
@@ -33,5 +37,6 @@
          (testing "counter route"
                   (let [result (http/get (str path "/counter"))
                         result-second (http/get (str path "/counter"))]
+                       (println "RESULT" result)
                        (is (= (:status result) 200))
                        (is (= (:body result-second) (str (+ (read-string (:body result)) 1)))))))
